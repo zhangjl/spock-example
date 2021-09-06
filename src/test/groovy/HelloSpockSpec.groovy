@@ -17,14 +17,44 @@
 import spock.lang.Specification
 
 class HelloSpockSpec extends Specification {
-  def "length of Spock's and his friends' names"() {
-    expect:
-    name.size() == length
+    /**
+     * runs once -  before the first feature method
+     * @return
+     */
+    def setupSpec() {
+        println('>>>>> init1 ...')
+    }
 
-    where:
-    name     | length
-    "Spock"  | 5
-    "Kirk"   | 4
-    "Scotty" | 6
-  }
-}  
+    /**
+     * runs before every feature method
+     * @return
+     */
+    def setup() {
+        println('>>>>> init2 ...')
+    }
+
+    def "length of Spock's and his friends' names"() {
+        expect:
+        name.size() == length
+
+        where:
+        name     | length
+        "Spock"  | 5
+        "Kirk"   | 4
+        "Scotty" | 6
+    }
+
+    /**
+     * runs after every feature method
+     */
+    def cleanup() {
+        println('>>>> cleanup2...')
+    }
+
+    /**
+     * runs once -  after the last feature method
+     */
+    def cleanupSpec() {
+        println('>>>> cleanup1...')
+    }
+}
