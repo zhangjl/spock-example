@@ -15,6 +15,7 @@
  */
 
 import spock.lang.*
+import spock.util.mop.Use
 
 class DataDrivenSpec extends Specification {
   def "maximum of two numbers"() {
@@ -38,6 +39,97 @@ class DataDrivenSpec extends Specification {
     9 | 9 || 9
   }
 
+  def 'multi-variable data pipes of #a and #b and #c'(){
+    expect:
+    a.sum() + b == c
+
+    where:
+    [a, [b, _, c]] << [
+            [1, 5].permutations(),
+            [
+                    [2, 3, 8],
+                    [1, 4, 7]
+            ]
+    ].combinations()
+  }
+
+  def 'data variable assignment #a and #b and #c'(){
+      expect:
+      a + b > c
+      where:
+      a = 3
+      b = Double.valueOf(Math.random() * 100).intValue()
+      c = Math.max(a, b)
+  }
+
+  def 'data variable assignment second style'(){
+    expect:
+    a + b > 0
+    where:
+    a | b
+    1 | a + 2
+    2 | a * 2
+    3 | a / 2
+    4 | a - 2
+  }
+
+  def 'data variable assignment second style model2'(){
+    expect:
+    d * e + c - a - b > 0
+
+    where:
+    a | b
+    1 | a + 2
+    2 | a * 2
+    4 | a - 2
+
+    and:
+    c = 1
+
+    and:
+    d     | e
+    a * 2 | b * 2
+    a * 3 | b * 3
+    a * 4 | b * 4
+  }
+
+  def 'Combining Data Tables, Data Pipes, and Variable Assignments'(){
+    expect:
+    a + b + c + d > 10
+
+    where:
+    a | b
+    3 | a + 7
+    5 | a + 5
+    7 | a + 3
+
+    c << [4, 5, 6]
+
+    d = Math.max(a, c)
+  }
+
+  /**
+   * 类型强制转换
+   * @param i
+   */
+  def 'type coercion for data variable values'(Integer i){
+      expect:
+      i instanceof Integer
+      i == 10
+
+      where:
+      i = '10'
+  }
+
+  @Use(CoerceBazToBar)
+  def 'custom type coercion'(){
+      expect:
+      bar.asType() == Bar.FOO
+
+      where:
+      bar = Baz.FOO
+  }
+
   def "#person.name is a #sex.toLowerCase() person"() {
     expect:
     person.getSex() == sex
@@ -52,6 +144,15 @@ class DataDrivenSpec extends Specification {
     String name
     String getSex() {
       name == "Fred" ? "Male" : "Female"
+    }
+  }
+
+  enum Bar {FOO, BAR}
+  enum Baz {FOO, BAR}
+
+  class CoerceBazToBar {
+    static Bar asType(Baz self, Class<Bar> clazz){
+        return Bar.valueOf(self.name())
     }
   }
 }

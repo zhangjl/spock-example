@@ -34,4 +34,24 @@ class DatabaseDrivenSpec extends Specification {
     where:
     [a, b, c] << sql.rows("select a, b, c from maxdata")
   }
+
+  def "Maximum of #a and #b is #c for assignment"() {
+    expect:
+    Math.max(a, b) == c
+
+    where:
+    row << sql.rows("select a, b, c from maxdata")
+    a = row.a
+    b = row.b
+    c = row.c
+  }
+
+  def "Maximum of #a and #b is #c for assignment model2"() {
+    expect:
+    Math.max(a, b) == c
+
+    where:
+    row << sql.rows("select a, b, c from maxdata")
+    (a, b, c) = row
+  }
 }

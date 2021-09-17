@@ -11,7 +11,10 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <groovy.version>3.0.8</groovy.version>
+    <powermock.version>2.0.9</powermock.version>
   </properties>
 
   <build>
@@ -35,6 +38,7 @@
       <!-- Optional plugins for using Spock -->
       <!-- Only required if names of spec classes don't match default Surefire patterns (`*Test` etc.) -->
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M5</version>
         <configuration>
@@ -53,6 +57,36 @@
         <configuration>
           <skip>true</skip>
         </configuration>
+      </plugin>
+
+      <!-- jcoco -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.7</version>
+        <configuration>
+          <includes>
+            <include>com/**</include>
+            <include>**/*Test</include>
+            <include>**/*Spec</include>
+            <include>*Spec</include>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>pre-test</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>post-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -76,11 +110,42 @@
       <artifactId>spock-core</artifactId>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-junit4</artifactId>
       <scope>test</scope>
     </dependency>
+
+      <!-- use powermock -->
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-module-junit4</artifactId>
+      <version>${powermock.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-api-mockito2</artifactId>
+      <version>${powermock.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-module-junit4-rule-agent</artifactId>
+      <version>${powermock.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- jcoco -->
+    <dependency>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.7</version>
+    </dependency>
+
     <!-- Optional dependencies for using Spock -->
     <dependency> <!-- use a specific Groovy version rather than the one specified by spock-core -->
       <groupId>org.codehaus.groovy</groupId>
@@ -93,18 +158,21 @@
       <version>1.11.0</version>
       <scope>test</scope>
     </dependency>
+
     <dependency> <!-- enables mocking of classes without default constructor (together with ByteBuddy or CGLIB) -->
       <groupId>org.objenesis</groupId>
       <artifactId>objenesis</artifactId>
       <version>3.2</version>
       <scope>test</scope>
     </dependency>
+
     <dependency> <!-- only required if Hamcrest matchers are used -->
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
       <version>2.2</version>
       <scope>test</scope>
     </dependency>
+
     <!-- Dependencies used by examples in this project (not required for using Spock) -->
     <dependency>
       <groupId>com.h2database</groupId>
@@ -115,6 +183,18 @@
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-sql</artifactId>
       <version>${groovy.version}</version>
+    </dependency>
+
+    <!-- mapsturct for support test -->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>1.4.2.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-processor</artifactId>
+      <version>1.4.2.Final</version>
     </dependency>
   </dependencies>
 

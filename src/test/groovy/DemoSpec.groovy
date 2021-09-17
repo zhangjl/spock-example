@@ -1,6 +1,8 @@
 import spock.lang.Ignore
+import spock.lang.Rollup
 import spock.lang.Specification
 import spock.lang.Timeout
+import spock.lang.Unroll
 
 /**
  * @author zhangjl
@@ -58,6 +60,7 @@ class DemoSpec extends Specification {
         notThrown(NullPointerException)
     }
 
+    @Unroll
     def 'computing the maximum of two number style one'(){
         expect:
         Math.max(a, b) == c
@@ -68,6 +71,7 @@ class DemoSpec extends Specification {
         c << [2, 4, 3]
     }
 
+    @Rollup
     def 'computing the maximum of two number style two'(){
         expect:
         Math.max(a, b) == c
