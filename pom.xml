@@ -174,15 +174,28 @@
     </dependency>
 
     <!-- Dependencies used by examples in this project (not required for using Spock) -->
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.4.197</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>com.h2database</groupId>-->
+<!--      <artifactId>h2</artifactId>-->
+<!--      <version>1.4.197</version>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-sql</artifactId>
       <version>${groovy.version}</version>
+    </dependency>
+
+    <!-- mybatis -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.5.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.meituan.mall</groupId>
+      <artifactId>spock-dao-unit-test</artifactId>
+      <version>1.0.0</version>
     </dependency>
 
     <!-- mapsturct for support test -->
