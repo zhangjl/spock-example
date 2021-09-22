@@ -195,7 +195,7 @@
     <dependency>
       <groupId>com.meituan.mall</groupId>
       <artifactId>spock-dao-unit-test</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
 
     <!-- mapsturct for support test -->
