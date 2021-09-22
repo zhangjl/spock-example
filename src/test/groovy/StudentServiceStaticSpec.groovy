@@ -21,7 +21,7 @@ class StudentServiceStaticSpec extends Specification {
         PowerMockito.mockStatic(AbbreviationProvinceUtil.class)
 
         and:
-        PowerMockito.when(AbbreviationProvinceUtil.convert2Abbreviation(Mockito.any()))
+        PowerMockito.when(AbbreviationProvinceUtil.convert2Abbreviation(Mockito.any(), Mockito.any()))
                 .thenReturn(abbreviation)
 
         when:
@@ -41,7 +41,7 @@ class StudentServiceStaticSpec extends Specification {
 
         given:
         GroovyMock(AbbreviationProvinceUtil, global: true)
-        AbbreviationProvinceUtil.convert2Abbreviation(_) >> abbreviation
+        AbbreviationProvinceUtil.convert2Abbreviation(_, _) >> abbreviation
 
         when:
         def response = demo.wrapper(province)
@@ -60,7 +60,7 @@ class StudentServiceStaticSpec extends Specification {
 
         given:
         GroovySpy(AbbreviationProvinceUtil, global: true)
-        AbbreviationProvinceUtil.convert2Abbreviation(_) >> abbreviation
+        AbbreviationProvinceUtil.convert2Abbreviation(_, _) >> abbreviation
 
         when:
         def response = demo.wrapper(province)
@@ -77,12 +77,12 @@ class StudentServiceStaticSpec extends Specification {
 
 class DemoGo {
     String wrapper(String province){
-        return AbbreviationProvinceUtil.convert2Abbreviation(province)
+        return AbbreviationProvinceUtil.convert2Abbreviation(province, 0L)
     }
 }
 
 class AbbreviationProvinceUtil {
-    static String convert2Abbreviation(String province){
+    static String convert2Abbreviation(String province, Long data){
         return null
     }
 }
