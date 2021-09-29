@@ -29,7 +29,7 @@ class DemoSpec extends Specification {
         Stack<String> stack = new Stack<>()
 
         when:
-        stack.pop();
+        stack.pop()
 
         then:
         thrown(EmptyStackException)
