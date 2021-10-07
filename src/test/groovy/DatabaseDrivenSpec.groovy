@@ -19,39 +19,39 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 class DatabaseDrivenSpec extends Specification {
-  @Shared sql = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
+    @Shared sql = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
 
-  // insert data (usually the database would already contain the data)
-  def setupSpec() {
-    sql.execute("create table maxdata (id int primary key, a int, b int, c int)")
-    sql.execute("insert into maxdata values (1, 3, 7, 7), (2, 5, 4, 5), (3, 9, 9, 9), (4, 2, -3, 2)")
-  }
+    // insert data (usually the database would already contain the data)
+    def setupSpec() {
+        sql.execute("create table maxdata (id int primary key, a int, b int, c int)")
+        sql.execute("insert into maxdata values (1, 3, 7, 7), (2, 5, 4, 5), (3, 9, 9, 9), (4, 2, -3, 2)")
+    }
 
-  def "Maximum of #a and #b is #c"() {
-    expect:
-    Math.max(a, b) == c
+    def "Maximum of #a and #b is #c"() {
+        expect:
+        Math.max(a, b) == c
 
-    where:
-    [a, b, c] << sql.rows("select a, b, c from maxdata")
-  }
+        where:
+        [a, b, c] << sql.rows("select a, b, c from maxdata")
+    }
 
-  def "Maximum of #a and #b is #c for assignment"() {
-    expect:
-    Math.max(a, b) == c
+    def "Maximum of #a and #b is #c for assignment"() {
+        expect:
+        Math.max(a, b) == c
 
-    where:
-    row << sql.rows("select a, b, c from maxdata")
-    a = row.a
-    b = row.b
-    c = row.c
-  }
+        where:
+        row << sql.rows("select a, b, c from maxdata")
+        a = row.a
+        b = row.b
+        c = row.c
+    }
 
-  def "Maximum of #a and #b is #c for assignment model2"() {
-    expect:
-    Math.max(a, b) == c
+    def "Maximum of #a and #b is #c for assignment model2"() {
+        expect:
+        Math.max(a, b) == c
 
-    where:
-    row << sql.rows("select a, b, c from maxdata")
-    (a, b, c) = row
-  }
+        where:
+        row << sql.rows("select a, b, c from maxdata")
+        (a, b, c) = row
+    }
 }

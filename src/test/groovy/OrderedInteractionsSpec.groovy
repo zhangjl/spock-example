@@ -23,23 +23,23 @@ import spock.lang.*
  * @since 0.4
  */
 class OrderedInteractionsSpec extends Specification {
-  def "collaborators must be invoked in order"() {
-    def coll1 = Mock(Collaborator)
-    def coll2 = Mock(Collaborator)
+    def "collaborators must be invoked in order"() {
+        def coll1 = Mock(Collaborator)
+        def coll2 = Mock(Collaborator)
 
-    when:
-    // try to reverse the order of these invocations and see what happens
-    coll1.collaborate()
-    coll2.collaborate()
+        when:
+        // try to reverse the order of these invocations and see what happens
+        coll1.collaborate()
+        coll2.collaborate()
 
-    then:
-    1 * coll1.collaborate()
+        then:
+        1 * coll1.collaborate()
 
-    then:
-    1 * coll2.collaborate()
-  }
+        then:
+        1 * coll2.collaborate()
+    }
 }
 
 interface Collaborator {
-  def collaborate()
+    def collaborate()
 }
