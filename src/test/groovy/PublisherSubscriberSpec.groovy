@@ -78,7 +78,17 @@ class PublisherSpec extends Specification {
 
         then:
         (1..3) * sub1.receive('event')
-//        _ * sub1.receive('event')
-//        (1.._) * sub1.receive('event')
+
+        when:
+        pub.send('event2')
+
+        then:
+        _ * sub1.receive('event2')
+
+        when:
+        pub.send('event3')
+
+        then:
+        (1.._) * sub1.receive('event3')
     }
 }
