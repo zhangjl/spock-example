@@ -1,5 +1,6 @@
 runner {
-  exclude Slow
+    exclude Slow
+    filterStackTrace false
 }
 
 

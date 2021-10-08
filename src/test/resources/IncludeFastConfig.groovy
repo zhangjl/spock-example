@@ -1,5 +1,6 @@
 runner {
-  include Fast
+    include Fast
+    filterStackTrace false
 }
 
 
