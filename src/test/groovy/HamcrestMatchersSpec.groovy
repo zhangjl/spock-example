@@ -12,6 +12,8 @@
  * limitations under the License.
  */
 
+
+import org.hamcrest.Matchers
 import spock.lang.Specification
 
 import static spock.util.matcher.HamcrestMatchers.closeTo
@@ -31,5 +33,14 @@ class HamcrestMatchersSpec extends Specification {
 
         expect:
         myPi closeTo(Math.PI, 0.01)
+    }
+
+    def 'comparing two integer numbers equal'(){
+        def final valid = 1
+        def final not_valid = 2
+
+        expect:
+        valid Matchers.equalTo(1)
+        not_valid Matchers.equalTo(2)
     }
 }

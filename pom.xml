@@ -173,12 +173,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Dependencies used by examples in this project (not required for using Spock) -->
-        <!--    <dependency>-->
-        <!--      <groupId>com.h2database</groupId>-->
-        <!--      <artifactId>h2</artifactId>-->
-        <!--      <version>1.4.197</version>-->
-        <!--    </dependency>-->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-sql</artifactId>
@@ -208,6 +202,26 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
             <version>1.4.2.Final</version>
+        </dependency>
+
+        <!-- tool -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
